@@ -1,5 +1,6 @@
 package com.johncloud.cn.view;
 
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.util.ArrayList;
@@ -25,7 +26,11 @@ import android.widget.TextView;
  *
  */
 public class MainActivity extends Activity {
-	
+    private static final String TAG = "VisitRootfileActivity";  
+    Process process = null;  
+    Process process1 = null;     
+    DataOutputStream os = null;  
+    DataInputStream is = null; 
 	ListView lv;
 	TextView tv;
 	ArrayList<String> filestr = new ArrayList<String>();
@@ -33,10 +38,45 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		upgradeRootPermission(getPackageCodePath());
+		String apkRoot = "chmod 777 " + getPackageCodePath();
+		runRootCommand(apkRoot);
+		
 		lv = (ListView) findViewById(R.id.listView1);
 		tv = (TextView) findViewById(R.id.textView1);
 		setView();
+	}
+	private boolean runRootCommand(String apkRoot) {
+		// TODO Auto-generated method stub
+		
+			Process process = null;
+			DataOutputStream os = null;
+
+			try {
+			    process = Runtime.getRuntime().exec("su");
+			    os = new DataOutputStream(process.getOutputStream());
+			    os.writeBytes(apkRoot + "\n");
+			    os.writeBytes("exit\n");
+			    os.flush();
+			    process.waitFor();
+			    Log.d("ggggggggggggggggggggggg",  "ggggggggggggggggggggggggggggggg ");
+			} catch (Exception e) {
+			    Log.d("bbbbbbzzzzzzkkkkkkkkkkkkkkkkkkkkkkkkkkkkS",  "su root - the device is not rooted,  error message£∫ " + e.getMessage());
+			    return false;
+			} finally {
+			    try {
+			        if(null != os) {
+			            os.close();
+			    }
+			    if(null != process) {
+			        process.destroy();
+			    }
+			    } catch (Exception e) {
+			        e.printStackTrace();
+			    }
+			}
+			return true;
+
+			
 	}
 	/**
 	 * …Ë÷√listview
@@ -81,28 +121,5 @@ public class MainActivity extends Activity {
 	 * @param pkgCodePath
 	 * @return
 	 */
-	public static boolean upgradeRootPermission(String pkgCodePath) {
-	    Process process = null;
-	    DataOutputStream os = null;
-	    try {
-	        String cmd="chmod 777 " + pkgCodePath;
-	        process = Runtime.getRuntime().exec("su"); //«–ªªµΩroot’ ∫≈
-	        os = new DataOutputStream(process.getOutputStream());
-	        os.writeBytes(cmd + "\n");
-	        os.writeBytes("exit\n");
-	        os.flush();
-	        process.waitFor();
-	    } catch (Exception e) {
-	        return false;
-	    } finally {
-	        try {
-	            if (os != null) {
-	                os.close();
-	            }
-	            process.destroy();
-	        } catch (Exception e) {
-	        }
-	    }
-	    return true;
-	}
+
 }

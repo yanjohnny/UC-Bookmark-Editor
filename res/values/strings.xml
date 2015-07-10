@@ -4,5 +4,7 @@
     <string name="app_name">UC书签管理</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="BookMarkActivity">BookMarkActivity</string>
+    <string name="PackageActivity">PackageActivity</string>
 
 </resources>
