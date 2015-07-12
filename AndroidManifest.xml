@@ -7,7 +7,8 @@
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="14" />
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -23,13 +24,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-         <activity
+        <activity
             android:name=".BookMarkActivity"
             android:label="@string/BookMarkActivity" >
         </activity>
         <activity
-            android:name=".PackageActivity"
+            android:name=".PackageEditorActivity"
             android:label="@string/PackageActivity" >
+        </activity>
+        <activity
+            android:name=".Selector"
+            android:label="Selector" >
         </activity>
     </application>
 

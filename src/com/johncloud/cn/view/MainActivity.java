@@ -100,7 +100,7 @@ public class MainActivity extends Activity {
 				public void onItemClick(AdapterView<?> parent, View view,
 						int position, long id) {
 					// TODO Auto-generated method stub
-					Intent intent = new Intent(MainActivity.this,BookMarkActivity.class);
+					Intent intent = new Intent(MainActivity.this,Selector.class);
 					Bundle b = new Bundle();
 					b.putString("ps", filestr.get(position));
 					intent.putExtras(b);
