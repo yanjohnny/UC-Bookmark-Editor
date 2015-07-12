@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/s_button1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="doClick"
+        android:text="包操作：删除增加包" />
+
+    <Button
+        android:id="@+id/s_button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="doClick"
+        android:text="书签操作：修改书签所属包" />
+
+
+
+</LinearLayout>
