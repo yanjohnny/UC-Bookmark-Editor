@@ -58,7 +58,7 @@ public class MainActivity extends Activity {
 			    os.writeBytes("exit\n");
 			    os.flush();
 			    process.waitFor();
-			    Log.d("ggggggggggggggggggggggg",  "ggggggggggggggggggggggggggggggg ");
+			    Log.d("gggggggggggggggggggggg",  "ggggggggggggggggggggggggggggg ");
 			} catch (Exception e) {
 			    Log.d("bbbbbbzzzzzzkkkkkkkkkkkkkkkkkkkkkkkkkkkkS",  "su root - the device is not rooted,  error message£º " + e.getMessage());
 			    return false;

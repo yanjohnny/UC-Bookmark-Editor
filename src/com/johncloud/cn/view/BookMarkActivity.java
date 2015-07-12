@@ -2,6 +2,7 @@ package com.johncloud.cn.view;
 
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
@@ -40,6 +41,8 @@ public class BookMarkActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.bookmark_layout);
+		int i = execRootCmdSilent("chmod 777 /data/data/com.UCMobile/databases/bookmark.db");
+		Log.i("eeeeeeeeeeeeeeeeeeeeeeeeeeee",String.valueOf(i));
 		Bundle b = getIntent().getExtras();
 		String s = b.getString("ps");
 		//解析获得包名 放入listview中
@@ -57,10 +60,13 @@ public class BookMarkActivity extends Activity {
 		//解析sqlite
 		
 		String s2 = "/sdcard/Youdao/Dict/notes.db";
-		SQLiteDatabase sdb = SQLiteDatabase.openOrCreateDatabase(
-				Environment.getDataDirectory().getPath()+s1.substring(5),null);
-		String sql="select username from user";
-		Cursor c=sdb.rawQuery(sql,null);
+		/*SQLiteDatabase sdb = SQLiteDatabase.openOrCreateDatabase(
+				Environment.getDataDirectory().getPath()+s1.substring(5),null);*/
+		
+		SQLiteDatabase sdb = SQLiteDatabase.openDatabase(
+				"/data/data/com.UCMobile/databases/bookmark.db",null,SQLiteDatabase.OPEN_READWRITE);
+		String sql="select title from bookmark";
+		Cursor c=sdb.rawQuery(sql, null);
 		//Cursor c=sdb.query("note01",new String[]{"_id","content"}, "_id>?", new String[]{"0"}, null, null, null);
 		//通过Cursor对象取数据
 		while(c.moveToNext()){//循环一次取一行
@@ -94,5 +100,36 @@ public class BookMarkActivity extends Activity {
 	private void setView() {
 		// 解析表获取title和url
 	}
+	public static int execRootCmdSilent(String cmd) { 
+        int result = -1; 
+        DataOutputStream dos = null; 
+         
+        try { 
+            Process p = Runtime.getRuntime().exec("su"); 
+            dos = new DataOutputStream(p.getOutputStream()); 
+             
+            Log.i("ddddddddddddddddddddddd", cmd); 
+            dos.writeBytes(cmd + "\n"); 
+            dos.flush(); 
+            dos.writeBytes("exit\n"); 
+            dos.flush(); 
+            p.waitFor(); 
+            result = p.exitValue(); 
+            Log.i("jjjjjjjjjjjjjjjjjjjj", cmd); 
+        } catch (Exception e) { 
+            e.printStackTrace(); 
+        } finally { 
+            if (dos != null) { 
+                try { 
+                    dos.close(); 
+                } catch (IOException e) { 
+                    e.printStackTrace(); 
+                } 
+            } 
+        } 
+        return result; 
+    } 
+} 
 
-}
+
+
