@@ -26,7 +26,6 @@ import android.widget.TextView;
  *
  */
 public class MainActivity extends Activity {
-    private static final String TAG = "VisitRootfileActivity";  
     Process process = null;  
     Process process1 = null;     
     DataOutputStream os = null;  
@@ -39,9 +38,8 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		String apkRoot = "chmod 777 " + getPackageCodePath();
-		runRootCommand(apkRoot);
-		
-		lv = (ListView) findViewById(R.id.listView1);
+		runRootCommand(apkRoot);		
+		lv = (ListView) findViewById(R.id.aml1);
 		tv = (TextView) findViewById(R.id.textView1);
 		setView();
 	}
@@ -57,10 +55,8 @@ public class MainActivity extends Activity {
 			    os.writeBytes(apkRoot + "\n");
 			    os.writeBytes("exit\n");
 			    os.flush();
-			    process.waitFor();
-			    Log.d("gggggggggggggggggggggg",  "ggggggggggggggggggggggggggggg ");
+			    process.waitFor();			    
 			} catch (Exception e) {
-			    Log.d("bbbbbbzzzzzzkkkkkkkkkkkkkkkkkkkkkkkkkkkkS",  "su root - the device is not rooted,  error message： " + e.getMessage());
 			    return false;
 			} finally {
 			    try {
@@ -74,9 +70,7 @@ public class MainActivity extends Activity {
 			        e.printStackTrace();
 			    }
 			}
-			return true;
-
-			
+			return true;		
 	}
 	/**
 	 * 设置listview
@@ -90,10 +84,8 @@ public class MainActivity extends Activity {
 		  		if(Pattern.compile("[0-9]*.db").matcher(s).matches()||Pattern.compile("bookmark*.db").matcher(s).matches()){
 		  			names.add(s);
 		  			filestr.add(f.toString());
-		  		}
-		  		
-		  	}
-		  	
+		  		}		  		
+		  	}		  	
 			  //2.item布局
 		  	int resourceId=android.R.layout.simple_list_item_1;
 			  //3.构建Adapter,通过Adapter构建item
@@ -121,5 +113,4 @@ public class MainActivity extends Activity {
 	 * @param pkgCodePath
 	 * @return
 	 */
-
 }

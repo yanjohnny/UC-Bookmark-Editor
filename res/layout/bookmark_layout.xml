@@ -4,7 +4,7 @@
     android:layout_height="match_parent" >
 
     <LinearLayout
-        android:id="@+id/l1"
+        android:id="@+id/ll1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -26,55 +26,56 @@
             android:layout_weight="1" />
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/listView1"
+    <LinearLayout
+        android:id="@+id/ll2"
+        android:layout_below="@id/ll1"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/radioGroup1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/l1" >
-    </ListView>
+        android:orientation="vertical"
+        >
 
-    <ListView
-        android:id="@+id/listView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textView1" >
-    </ListView>
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_below="@id/listView1"
-        android:background="@android:color/background_light" />
-
-        <RadioGroup
-            android:id="@+id/radioGroup1"
+        <ListView
+            android:id="@+id/listView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-			android:layout_alignParentBottom="true"
-            android:orientation="horizontal"
+             >
+        </ListView>
+
+        <ListView
+            android:id="@+id/listView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             >
+        </ListView>
+    </LinearLayout>
 
-            <RadioButton
-                android:id="@+id/radio0"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:button="@null"
-                android:gravity="center"
-                android:onClick="doClick"
-                android:text="选择文件夹" />
+    <RadioGroup
+        android:id="@+id/radioGroup1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal" >
 
-            <RadioButton
-                android:id="@+id/radio1"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:button="@null"
-                android:gravity="center"
-                android:onClick="doClick"
-                android:text="新建文件夹" />
+        <RadioButton
+            android:id="@+id/radio0"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:onClick="doClick"
+            android:text="选择文件夹" />
 
-        </RadioGroup>
+        <RadioButton
+            android:id="@+id/radio1"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:onClick="doClick"
+            android:text="新建文件夹" />
+    </RadioGroup>
 
 </RelativeLayout>
