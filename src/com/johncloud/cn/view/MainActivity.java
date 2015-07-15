@@ -43,6 +43,10 @@ public class MainActivity extends Activity {
 		tv = (TextView) findViewById(R.id.textView1);
 		setView();
 	}
+	/**
+	 * 申请root权限
+	 * @return
+	 */
 	private boolean runRootCommand(String apkRoot) {
 		// TODO Auto-generated method stub
 		
@@ -100,7 +104,7 @@ public class MainActivity extends Activity {
 				public void onItemClick(AdapterView<?> parent, View view,
 						int position, long id) {
 					// TODO Auto-generated method stub
-					Intent intent = new Intent(MainActivity.this,Selector.class);
+					Intent intent = new Intent(MainActivity.this,SelectePackageActivity.class);
 					Bundle b = new Bundle();
 					b.putString("ps", filestr.get(position));
 					intent.putExtras(b);
@@ -108,9 +112,5 @@ public class MainActivity extends Activity {
 				}
 			});
 	}
-	/**
-	 * 申请root权限
-	 * @param pkgCodePath
-	 * @return
-	 */
+
 }

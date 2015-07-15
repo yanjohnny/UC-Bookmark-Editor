@@ -29,12 +29,12 @@
             android:label="@string/BookMarkActivity" >
         </activity>
         <activity
-            android:name=".PackageEditorActivity"
-            android:label="@string/PackageActivity" >
+            android:name=".SelectePackageActivity"
+            android:label="SelectePackageActivity" >
         </activity>
         <activity
-            android:name=".Selector"
-            android:label="Selector" >
+            android:name=".MainBookMarkActivity"
+            android:label="MainBookMarkActivity" >
         </activity>
     </application>
 
