@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="请选择包" />
+
+    <Button
+        android:id="@+id/selpack_button1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView1"
+        android:onClick="doClick"
+        android:text="根目录" />
+
+    <ListView
+        android:id="@+id/selpack_listview"
+        android:layout_width="match_parent"
+        android:layout_below="@id/selpack_button1"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+         >
+
+    </ListView>
+
+</RelativeLayout>
