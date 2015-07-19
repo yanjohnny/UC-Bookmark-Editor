@@ -3,11 +3,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
+	<LinearLayout
+        android:id="@+id/boma_ll1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:orientation="horizontal" >
 
+        <SearchView
+            android:id="@+id/boma_searchView1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2" >
+        </SearchView>
+
+        <Spinner
+            android:id="@+id/boma_spinner1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
     <ListView
         android:id="@+id/boma_lv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/boma_ll1"
         android:layout_above="@+id/boma_button" 
         android:choiceMode="multipleChoice" >
 

@@ -19,9 +19,13 @@ import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.SearchView.OnQueryTextListener;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.SearchView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 public class BookMarkActivity extends Activity {
@@ -34,6 +38,7 @@ public class BookMarkActivity extends Activity {
 	ListView bookmarkListview;
 	ArrayList<String> PackageNames;
 	long[] bookmarkId;
+	int spinnerKey = 0;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -46,11 +51,102 @@ public class BookMarkActivity extends Activity {
 		sdb = SQLiteDatabase.openDatabase(databasePath,null,SQLiteDatabase.OPEN_READWRITE);
 		setBookMarkView();
 		setSearchView();
+		setSearchView();
+		setSpinnerView();
+	}
+	private void setSpinnerView() {
+		// TODO Auto-generated method stub
+		Spinner sp = (Spinner) findViewById(R.id.boma_spinner1);
+		sp.setAdapter(
+			    new ArrayAdapter<String>(this,
+			    android.R.layout.simple_spinner_item,
+			    new String[]{"¸ù¾Ý±êÌâ","¸ù¾ÝÍøÖ·"}));
+		sp.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int position, long id) {
+				// TODO Auto-generated method stub
+				if(position ==0){
+					spinnerKey = 0;
+				}else{
+					spinnerKey = 1;
+				}
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 	}
 	private void setSearchView() {
 		// TODO Auto-generated method stub
-		
+		SearchView searchView = (SearchView) findViewById(R.id.boma_searchView1);
+		searchView.setOnQueryTextListener(new OnQueryTextListener() {
+			
+			@Override
+			public boolean onQueryTextSubmit(String query) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+			
+			@Override
+			public boolean onQueryTextChange(String newText) {
+				// TODO Auto-generated method stub
+				if(spinnerKey == 0){
+					bookmarkListview = (ListView) findViewById(R.id.boma_lv);
+					String sql1 = "select luid from bookmark where title='"+packageName+"'";
+					Cursor c1=sdb.rawQuery(sql1, null);
+					int luid = 0;		
+					while(c1.moveToNext()){
+						luid = c1.getInt(0);
+					}
+					String sql2 =  "select title,url from bookmark where parent_id ="+luid+" and title like '%"+newText+"%'";
+					Cursor c2=sdb.rawQuery(sql2, null);
+					//Í¨ï¿½ï¿½Cursorï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
+					titleList = new ArrayList<String>();
+					urlList = new ArrayList<String>();
+					while(c2.moveToNext()){
+						String a = c2.getString(0);
+						titleList.add(a);
+						String b = c2.getString(1);
+						urlList.add(b);
+					}
+					c1.close();		
+					c2.close();		
+					bookmarkAdapter = new BookmarkAdapter(BookMarkActivity.this, titleList, urlList);		
+					bookmarkListview.setAdapter(bookmarkAdapter);
+				}else{
+					bookmarkListview = (ListView) findViewById(R.id.boma_lv);
+					String sql1 = "select luid from bookmark where title='"+packageName+"'";
+					Cursor c1=sdb.rawQuery(sql1, null);
+					int luid = 0;		
+					while(c1.moveToNext()){
+						luid = c1.getInt(0);
+					}
+					String sql2 =  "select title,url from bookmark where parent_id ="+luid+" and url like '%"+newText+"%'";
+					Cursor c2=sdb.rawQuery(sql2, null);
+					//Í¨ï¿½ï¿½Cursorï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
+					titleList = new ArrayList<String>();
+					urlList = new ArrayList<String>();
+					while(c2.moveToNext()){
+						String a = c2.getString(0);
+						titleList.add(a);
+						String b = c2.getString(1);
+						urlList.add(b);
+					}
+					c1.close();		
+					c2.close();		
+					bookmarkAdapter = new BookmarkAdapter(BookMarkActivity.this, titleList, urlList);		
+					bookmarkListview.setAdapter(bookmarkAdapter);
+				}
+				return false;
+			}
+		});	
 	}
+
 	private void setBookMarkView() {
 		// TODO Auto-generated method stub
 		bookmarkListview = (ListView) findViewById(R.id.boma_lv);
