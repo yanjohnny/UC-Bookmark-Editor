@@ -45,6 +45,11 @@ public class BookMarkActivity extends Activity {
 		execRootCmdSilent("chmod 777 "+databasePath);
 		sdb = SQLiteDatabase.openDatabase(databasePath,null,SQLiteDatabase.OPEN_READWRITE);
 		setBookMarkView();
+		setSearchView();
+	}
+	private void setSearchView() {
+		// TODO Auto-generated method stub
+		
 	}
 	private void setBookMarkView() {
 		// TODO Auto-generated method stub
@@ -91,12 +96,8 @@ public class BookMarkActivity extends Activity {
 		}
 		c.close();
 	    ArrayAdapter<String> packageNamesAdapter= new ArrayAdapter<String>(this, resourceId,PackageNames);
-	      
-
-	    listView.setAdapter(packageNamesAdapter);  
-	      
-	    linearLayoutMain.addView(listView);//往这个布局中加入listview  
-	      
+	    listView.setAdapter(packageNamesAdapter);  	      
+	    linearLayoutMain.addView(listView);//往这个布局中加入listview  	      
 	    final AlertDialog dialog = new AlertDialog.Builder(this)  
 	            .setView(linearLayoutMain)//在这里把写好的这个listview的布局加载dialog中  
 	            .setNegativeButton("取消", new DialogInterface.OnClickListener() {  
@@ -109,7 +110,7 @@ public class BookMarkActivity extends Activity {
 	            }).create();  
 	    dialog.setCanceledOnTouchOutside(false);//使除了dialog以外的地方不能被点击  
 	    dialog.show();  
-	    listView.setOnItemClickListener(new OnItemClickListener() {//响应listview中的item的点击事件  
+	    listView.setOnItemClickListener(new OnItemClickListener() {//响应listview中item的点击事件  
 	      
 	        @Override  
 	        public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,  

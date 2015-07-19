@@ -71,6 +71,9 @@ public class SelectePackageActivity extends Activity {
 	}
 	public void doClick(View v){
 		Intent i = new Intent(SelectePackageActivity.this,MainBookMarkActivity.class);
+		Bundle pnb = new Bundle();
+		pnb.putString("databasePath", databasePath);
+		i.putExtras(pnb);
 		startActivity(i);
 	}
 	public static int execRootCmdSilent(String cmd) { 
