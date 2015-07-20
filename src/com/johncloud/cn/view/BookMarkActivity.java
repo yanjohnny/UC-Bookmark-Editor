@@ -58,9 +58,9 @@ public class BookMarkActivity extends Activity {
 		// TODO Auto-generated method stub
 		Spinner sp = (Spinner) findViewById(R.id.boma_spinner1);
 		sp.setAdapter(
-			    new ArrayAdapter<String>(this,
-			    android.R.layout.simple_spinner_item,
-			    new String[]{"根据标题","根据网址"}));
+				new ArrayAdapter<String>(this,
+						android.R.layout.simple_spinner_item,
+						new String[]{"根据标题","根据网址"}));
 		sp.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
@@ -77,7 +77,7 @@ public class BookMarkActivity extends Activity {
 			@Override
 			public void onNothingSelected(AdapterView<?> parent) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
 	}
@@ -85,13 +85,13 @@ public class BookMarkActivity extends Activity {
 		// TODO Auto-generated method stub
 		SearchView searchView = (SearchView) findViewById(R.id.boma_searchView1);
 		searchView.setOnQueryTextListener(new OnQueryTextListener() {
-			
+
 			@Override
 			public boolean onQueryTextSubmit(String query) {
 				// TODO Auto-generated method stub
 				return false;
 			}
-			
+
 			@Override
 			public boolean onQueryTextChange(String newText) {
 				// TODO Auto-generated method stub
@@ -174,14 +174,14 @@ public class BookMarkActivity extends Activity {
 	}
 	public void doClick(View v){
 		bookmarkId = bookmarkListview.getCheckedItemIds();
-		
-	    LinearLayout linearLayoutMain = new LinearLayout(this);//自定义一个布局文件  
-	    linearLayoutMain.setLayoutParams(new LayoutParams(  
-	            LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));  
-	    ListView listView = new ListView(this);//this为获取当前的上下文  
-	    listView.setFadingEdgeLength(0); 
-	    int resourceId=android.R.layout.simple_list_item_1;
-	    PackageNames = new ArrayList<String>();
+
+		LinearLayout linearLayoutMain = new LinearLayout(this);//自定义一个布局文件  
+		linearLayoutMain.setLayoutParams(new LayoutParams(  
+				LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));  
+		ListView listView = new ListView(this);//this为获取当前的上下文  
+		listView.setFadingEdgeLength(0); 
+		int resourceId=android.R.layout.simple_list_item_1;
+		PackageNames = new ArrayList<String>();
 		//解析sqlite		
 		String sql="select title from bookmark where folder = 1";
 		Cursor c=sdb.rawQuery(sql, null);
@@ -190,49 +190,61 @@ public class BookMarkActivity extends Activity {
 			//c.getInt(c.getColumnIndex("_id"))S
 			PackageNames.add(c.getString(0));
 		}
+		PackageNames.add("根目录");
 		c.close();
-	    ArrayAdapter<String> packageNamesAdapter= new ArrayAdapter<String>(this, resourceId,PackageNames);
-	    listView.setAdapter(packageNamesAdapter);  	      
-	    linearLayoutMain.addView(listView);//往这个布局中加入listview  	      
-	    final AlertDialog dialog = new AlertDialog.Builder(this)  
-	            .setView(linearLayoutMain)//在这里把写好的这个listview的布局加载dialog中  
-	            .setNegativeButton("取消", new DialogInterface.OnClickListener() {  
-	      
-	                @Override  
-	                public void onClick(DialogInterface dialog, int which) {  
-	                    // TODO Auto-generated method stub  
-	                    dialog.cancel();  
-	                }  
-	            }).create();  
-	    dialog.setCanceledOnTouchOutside(false);//使除了dialog以外的地方不能被点击  
-	    dialog.show();  
-	    listView.setOnItemClickListener(new OnItemClickListener() {//响应listview中item的点击事件  
-	      
-	        @Override  
-	        public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,  
-	                long arg3) {  
-	            // TODO Auto-generated method stub
-	        	String patitle = PackageNames.get(arg2);
-	        	String sql2 =  "select luid from bookmark where title ='"+patitle+"'";
-	        	Cursor c=sdb.rawQuery(sql2, null);
-	        	int luidi = 0;
-	        	while(c.moveToNext()){//循环一次取一行
-	    			//c.getInt(c.getColumnIndex("_id"));
-	        		luidi=c.getInt(0);
-	    		}
-	    		c.close();
-	        	for(int i = 0;i<bookmarkId.length;i++){
-	        		long id = bookmarkId[i];
-	        		String titleS= titleList.get((int)id);
-	        		String sql3 =  "update bookmark set parent_id="+luidi+" where title='"+titleS+"'";
-	        		String sql4 =  "update bookmark set path='"+patitle+"' where title='"+titleS+"'";
-	        		sdb.execSQL(sql3);
-	        		sdb.execSQL(sql4);	        		
-	        	}        	
-	            dialog.cancel();
-	            setBookMarkView();
-	        }  
-	    });  
+		ArrayAdapter<String> packageNamesAdapter= new ArrayAdapter<String>(this, resourceId,PackageNames);
+		listView.setAdapter(packageNamesAdapter);  	      
+		linearLayoutMain.addView(listView);//往这个布局中加入listview  	      
+		final AlertDialog dialog = new AlertDialog.Builder(this)  
+		.setView(linearLayoutMain)//在这里把写好的这个listview的布局加载dialog中  
+		.setNegativeButton("取消", new DialogInterface.OnClickListener() {  
+
+			@Override  
+			public void onClick(DialogInterface dialog, int which) {  
+				// TODO Auto-generated method stub  
+				dialog.cancel();  
+			}  
+		}).create();  
+		dialog.setCanceledOnTouchOutside(false);//使除了dialog以外的地方不能被点击  
+		dialog.show();  
+		listView.setOnItemClickListener(new OnItemClickListener() {//响应listview中item的点击事件  
+
+			@Override  
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,  
+					long arg3) {  
+				// TODO Auto-generated method stub
+				if(arg2 != PackageNames.size()-1){
+					String patitle = PackageNames.get(arg2);
+					String sql2 =  "select luid from bookmark where title ='"+patitle+"'";
+					Cursor c=sdb.rawQuery(sql2, null);
+					int luidi = 0;
+					while(c.moveToNext()){//循环一次取一行
+						//c.getInt(c.getColumnIndex("_id"));
+						luidi=c.getInt(0);
+					}
+					c.close();
+					for(int i = 0;i<bookmarkId.length;i++){
+						long id = bookmarkId[i];
+						String titleS= titleList.get((int)id);
+						String sql3 =  "update bookmark set parent_id="+luidi+" where title='"+titleS+"'";
+						String sql4 =  "update bookmark set path='"+patitle+"' where title='"+titleS+"'";
+						sdb.execSQL(sql3);
+						sdb.execSQL(sql4);	        		
+					}
+				}else{					
+					for(int i = 0;i<bookmarkId.length;i++){
+						long id = bookmarkId[i];
+						String titleS= titleList.get((int)id);
+						String sql3 =  "update bookmark set parent_id = 0 where title='"+titleS+"'";
+						String sql4 =  "update bookmark set path = '' where title='"+titleS+"'";
+						sdb.execSQL(sql3);
+						sdb.execSQL(sql4);	        		
+					}
+				}
+				dialog.cancel();
+				setBookMarkView();
+			}  
+		});  
 	}
 	public static int execRootCmdSilent(String cmd) { 
 		int result = -1; 

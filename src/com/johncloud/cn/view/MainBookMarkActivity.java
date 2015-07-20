@@ -132,7 +132,7 @@ public class MainBookMarkActivity extends Activity{
 		// TODO Auto-generated method stub
 		genBookmarkListview = (ListView) findViewById(R.id.gen_lv);
 
-		String sql2 =  "select title,url from bookmark where folder = 0";
+		String sql2 =  "select title,url from bookmark where folder = 0 and parent_id = 0";
 		Cursor c2=sdb.rawQuery(sql2, null);
 		//通锟斤拷Cursor锟斤拷锟斤拷取锟斤拷锟斤拷
 		titleList = new ArrayList<String>();
@@ -148,8 +148,7 @@ public class MainBookMarkActivity extends Activity{
 		genBookmarkListview.setAdapter(bookmarkAdapter);
 	}
 	public void doClick(View v){
-		bookmarkId = genBookmarkListview.getCheckedItemIds();
-		
+		bookmarkId = genBookmarkListview.getCheckedItemIds();		
 	    LinearLayout linearLayoutMain = new LinearLayout(this);//自定义一个布局文件  
 	    linearLayoutMain.setLayoutParams(new LayoutParams(  
 	            LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));  
