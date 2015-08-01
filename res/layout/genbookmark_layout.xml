@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    	<LinearLayout
+        android:id="@+id/gen_ll1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <SearchView
+            android:id="@+id/gen_searchView1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2" >
+        </SearchView>
+
+        <Spinner
+            android:id="@+id/gen_spinner1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
+        <ListView
+        android:id="@+id/gen_lv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/gen_ll1"
+        android:layout_above="@+id/gen_button" 
+        android:choiceMode="multipleChoice" >
+
+    </ListView>
+
+    <Button
+        android:id="@+id/gen_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="doClick"
+        android:layout_alignParentBottom="true"
+        android:text="选择包" />
+
+</RelativeLayout>
